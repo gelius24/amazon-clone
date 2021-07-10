@@ -10,9 +10,9 @@ const app = !admin.apps.length
   : admin.app();
 
 //establlish connexion to STRIPE
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY); // This is an import
+const stripe = require("stripe")(process.env.stripe_secret_key); // This is an import
 
-const endpointSecret = process.env.STRIPE_SIGNING_SECRET;
+const endpointSecret = process.env.stripe_singing_secret;
 
 const fulfillOrder = async (session) => {
     // console.log('fulfilling order', session)
