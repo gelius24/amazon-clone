@@ -25,13 +25,13 @@ export default async (req, res) => {
         },
         line_items: transformedItems,
         mode: 'payment',
-        success_url: `${process.env.host}/success`,
-        cancel_url: `${process.env.host}/checkout`,
+        success_url: "https://amazonclone-7t56zfst0-gelius24.vercel.app//success",
+        cancel_url: "https://amazonclone-7t56zfst0-gelius24.vercel.app/checkout",
         metadata: {
             email,
-            images: JSON.stringify(items.map(item => item.image))
+            images: JSON.stringify(items.map(item => item.image)),
 
-        }
+        },
     })
     res.status(200).json({id: session.id})
 };
