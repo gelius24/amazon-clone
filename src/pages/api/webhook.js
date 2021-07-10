@@ -10,6 +10,7 @@ const app = !admin.apps.length
   : admin.app();
 
 //establlish connexion to STRIPE
+
 const stripe = require("stripe")(process.env.stripe_private_key); // This is an import
 
 const endpointSecret = process.env.stripe_signing_secret;

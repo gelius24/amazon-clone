@@ -16,8 +16,8 @@ function Checkout() {
   const [session] = useSession();
 
   const createCheckoutSession = async () => {
-    console.log(('stripe public key >>>') ,process.env.stripe_public_key)
-    console.log(`${process.env.host_url}/success`)
+    console.log("stripe public key >>>", process.env.stripe_public_key);
+    console.log(session.success_url, session.cancel_url);
     const stripe = await stripePromise;
 
     const checkoutSession = await axios.post("/api/create-checkout-session", {
