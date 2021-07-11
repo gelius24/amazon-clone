@@ -1,8 +1,8 @@
 // This is backend code
-const stripe = require("stripe")(process.env.stripe_private_key);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY.toString());
 
 export default async (req, res) => {
-  const { items, email } = req.rawBody;
+  const { items, email } = req.body;
 
   const transformedItems = items.map((item) => ({
     description: item.description,
@@ -25,8 +25,8 @@ export default async (req, res) => {
         },
         line_items: transformedItems,
         mode: 'payment',
-        success_url: "https://amazonclone-7t56zfst0-gelius24.vercel.app//success",
-        cancel_url: "https://amazonclone-7t56zfst0-gelius24.vercel.app/checkout",
+        success_url: `${process.env.HOST}/success`,
+        cancel_url: `${process.env.HOST}/checkout`,
         metadata: {
             email,
             images: JSON.stringify(items.map(item => item.image)),
