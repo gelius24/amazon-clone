@@ -18,6 +18,7 @@ function Checkout() {
   const [session] = useSession();
 
   const createCheckoutSession = async () => {
+
     const stripe = await stripePromise;
 
     const checkoutSession = await axios.post("/api/create-checkout-session", {
@@ -28,6 +29,7 @@ function Checkout() {
     const result = await stripe.redirectToCheckout({
       sessionId: checkoutSession.data.id,
     });
+    console.log(result)
 
     if (result.error) alert(result.error.message);
   };
