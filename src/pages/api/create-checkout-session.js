@@ -1,5 +1,7 @@
+const hostUrl = process.env.HOST.toString();
+
 // This is backend code
-const secretKey = process.env.STRIPE_SECRET_KEY.toString()
+const secretKey = process.env.STRIPE_SECRET_KEY.toString();
 const stripe = require("stripe")(secretKey);
 
 export default async (req, res) => {
@@ -18,21 +20,20 @@ export default async (req, res) => {
     },
   }));
 
-    const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
-        shipping_rates: ['shr_1JBYKbJ9biq6C6RbKC3L3NgA'],
-        shipping_address_collection: {
-            allowed_countries: ['CA', 'US', 'GB']
-        },
-        line_items: transformedItems,
-        mode: 'payment',
-        success_url: `${process.env.HOST.toString()}/success`,
-        cancel_url: `${process.env.HOST.toString()}/checkout`,
-        metadata: {
-            email,
-            images: JSON.stringify(items.map(item => item.image)),
-
-        },
-    })
-    res.status(200).json({id: session.id})
+  const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    shipping_rates: ["shr_1JBYKbJ9biq6C6RbKC3L3NgA"],
+    shipping_address_collection: {
+      allowed_countries: ["CA", "US", "GB"],
+    },
+    line_items: transformedItems,
+    mode: "payment",
+    success_url: `${hostUrl}/success`,
+    cancel_url: `${hostUrl}/checkout`,
+    metadata: {
+      email,
+      images: JSON.stringify(items.map((item) => item.image)),
+    },
+  });
+  res.status(200).json({ id: session.id });
 };
